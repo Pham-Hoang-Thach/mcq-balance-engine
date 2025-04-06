@@ -22,6 +22,7 @@ Place them in your Emacs `load-path` directory and load them into your Emacs env
 ```emacs-lisp
 (load-file "/path/to/persistent-org-combo-shuffler.el")
 (load-file "/path/to/extract-correct-answers.el")
+```
 
 Alternatively, you can copy the contents of these files into your Emacs configuration file.
 
@@ -59,6 +60,7 @@ After running the `persistent-org-combo-shuffler` function, you may get a result
 
 ** Science: What is the boiling point of water?
 - Answer: 100°C
+```
 
 # Customization
 
