@@ -2,25 +2,35 @@
 
 (defun extract-correct-answers (file-path)
   "Extract :Correct: answers from the current Org buffer and save to FILE-PATH as a CSV.
-   Each output line is in the format: Question,Answer.
-   Prompts the user for FILE-PATH to save."
+Keeps only the most recent answers by deleting everything above the last 'Question,Answer'."
   (interactive
-   (list
-    (read-file-name "Enter file path to save answers (as CSV): ")))
+   (list (read-file-name "Enter file path to save answers (as CSV): ")))
 
-  (let ((question-number 1)
-        (csv-lines '("Question,Answer")))  ;; Initialize with header
-
+  ;; Collect answers from Org buffer
+  (let ((answers '("Question,Answer"))
+        (qnum 1))
     (save-excursion
-      (goto-char (point-min))  ;; Start from the beginning of the current buffer
-      (while (re-search-forward "^:Correct: \\(.*\\)$" nil t)
-        (let ((answer (string-trim (match-string 1))))
-          (push (format "%d,%s" question-number answer) csv-lines)
-          (setq question-number (1+ question-number)))))
+      (goto-char (point-min))
+      (while (re-search-forward "^\\s-*:Correct: \\(.*\\)$" nil t)
+        (push (format "%d,%s" qnum (string-trim (match-string 1))) answers)
+        (setq qnum (1+ qnum))))
 
-    ;; Write to CSV file in one go
-    (with-temp-file file-path
-      (insert (mapconcat #'identity (nreverse csv-lines) "\n"))
-      (insert "\n"))  ;; Final newline for good measure
+    ;; Write to temp file
+    (let* ((temp-file (make-temp-file "org-answers-" nil ".csv"))
+           (clean-content ""))
+      (with-temp-file temp-file
+        (insert (mapconcat #'identity (nreverse answers) "\n"))
+        (insert "\n"))
 
-    (message "Answers extracted and saved to %s" file-path)))
+      ;; Keep only from last 'Question,Answer' onward
+      (with-temp-buffer
+        (insert-file-contents temp-file)
+        (goto-char (point-max))
+        (when (re-search-backward "^Question,Answer$" nil t)
+          (setq clean-content (buffer-substring-no-properties (point) (point-max)))))
+
+      ;; Write cleaned content to final file
+      (with-temp-file file-path
+        (insert clean-content)))
+
+    (message "Saved %d answers to %s" (1- qnum) file-path)))
