@@ -75,6 +75,10 @@ You can configure the maximum number of attempts to generate a unique combinatio
 - `-unique-combinations.el`: A file storing previously generated combinations for the associated Org file.
 - `.used-ids.el`: A file storing the used 3-digit IDs for the associated Org file.
 
+# Demo
+
+<iframe width="560" height="315" src="https://youtu.be/dl1TpdEbq7Q" frameborder="0" allowfullscreen></iframe>
+
 # Disclaimer
 
 This program is provided "as is", without any warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the program or the use or other dealings in the code.
