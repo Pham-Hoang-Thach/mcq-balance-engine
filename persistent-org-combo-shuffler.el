@@ -198,7 +198,7 @@
             (with-current-buffer buffer
               (erase-buffer)
               (org-mode)
-              (insert (format "* Exam code: %d\n\n" code))
+              (insert (format "*Exam code:* %d\n\n" code))
               (dolist (heading final-combination)
                 (let ((header-line (car heading)))
                   (insert (if show-tags
