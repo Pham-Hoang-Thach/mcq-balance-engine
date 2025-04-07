@@ -77,7 +77,7 @@ You can configure the maximum number of attempts to generate a unique combinatio
 
 # Demo
 
-[Watch the Video](https://youtu.be/dl1TpdEbq7Q)
+<a href="https://youtu.be/dl1TpdEbq7Q" target="_blank">Watch the Video</a>
 
 # Disclaimer
 
