@@ -2,26 +2,35 @@
 
 The **MCQ Balance Engine** is an Emacs-based tool designed to shuffle multiple-choice question (MCQ) headings in Org-mode files, ensuring unique combinations of questions based on specified tags. It also extracts correct answers from Org-mode files and saves them as a CSV file for easy access and analysis.
 
+# Demo (Updated versions could be different)
+
+[![Watch the Video](Screenshot.png)](https://youtu.be/dl1TpdEbq7Q)
+
 # Features
 
-- **Randomized Shuffling**: Uses the Fisher-Yates algorithm to shuffle question headings randomly.
-- **Persistent Uniqueness**: Ensures that combinations of questions, selected by tags, remain unique across sessions.
-- **Tag-Based Organization**: Supports organizing questions by tags, making it easy to select subsets of questions based on user input.
-- **Customizable Output**: Allows you to specify whether tags should be displayed in the output.
-- **Correct Answer Extraction**: Automatically extracts `:Correct:` tagged answers from Org-mode files and saves them as a CSV.
+- 🌀 **Fisher–Yates shuffle**: Fairly randomizes selection of Org subtrees.
+- 🔖 **Tag-based filtering**: Selects only top-level parent or leaf nodes with tags.
+- 📊 **Tag summary buffer**: Shows a real-time count of how many items are available per tag.
+- 🎯 **User-defined tag input**: Choose how many questions per tag to include.
+- 🧠 **Persistent uniqueness**: Guarantees previously seen combinations won't repeat across sessions.
+- 🆔 **Random 3-digit exam code**: Each combo is given a unique ID stored on disk.
+- 📤 **Export cleaned buffer**: Removes metadata, renumbers questions, and optionally shows tags.
+- 📥 **Extract correct answers**: Outputs answers into a CSV file from Org `:Correct:` properties.
 
 # Installation
 
 To use the MCQ Balance Engine, simply download the following files:
 
-1. `persistent-org-combo-shuffler.el`
-2. `extract-correct-answers.el`
+1. `mcq-persistent-org-combo-shuffler.el`
+2. `mcq-extract-correct-answers.el`
+3. `mcq-export-cleaned-questions.el`
 
 Place them in your Emacs `load-path` directory and load them into your Emacs environment.
 
 ```emacs-lisp
-(load-file "/path/to/persistent-org-combo-shuffler.el")
-(load-file "/path/to/extract-correct-answers.el")
+(load-file "/path/to/mcq-persistent-org-combo-shuffler.el")
+(load-file "/path/to/mcq-extract-correct-answers.el")
+(load-file "/path/to/mcq-export-cleaned-questions.el")
 ```
 
 Alternatively, you can copy the contents of these files into your Emacs configuration file.
@@ -33,34 +42,27 @@ Alternatively, you can copy the contents of these files into your Emacs configur
 To start shuffling and selecting unique combinations of Org-mode headings by tags:
 
 1. Open your Org-mode file in Emacs.
-2. Run the command: `M-x persistent-org-combo-shuffler`
+2. Run the command: `M-x mcq-persistent-org-combo-shuffler`
 3. The engine will display a summary of available tags and their counts.
 4. Enter your tag specifications (e.g., `math=2,science=3`).
 5. The engine will generate a unique combination of headings, ensuring that no combination repeats.
-6. You can choose whether to include tags in the output.
 
 ## Extract Correct Answers
 
 To extract the correct answers and save them as a CSV:
 
 1. Open your Org-mode file containing questions and answers.
-2. Run the command: `M-x extract-correct-answers`
+2. Run the command: `M-x mcq-extract-correct-answers`
 3. You will be prompted to enter a file path where the answers will be saved.
 4. The answers will be extracted and saved in a CSV format with the structure: `Question, Answer`.
 
-## Example
+## Export Cleaned Questions
 
-After running the `persistent-org-combo-shuffler` function, you may get a result like the following in a new buffer:
-
-```org
-* Exam code: 123
-
-** Math: What is 2 + 2?
-- Answer: 4
-
-** Science: What is the boiling point of water?
-- Answer: 100°C
-```
+1. From the shuffled buffer, run the command: `M-x mcq-export-cleaned-questions`
+2. Renumbers all questions sequentially (`Question 1`, `Question 2`, etc. or `Câu 1`, `Câu 2`, ... if in Vietnamese).
+3. Removes all `:PROPERTIES:` drawers.
+4. Optionally includes tags inline.
+5. Preserves *Exam code:* NNN heading at the top.
 
 # Customization
 
@@ -75,9 +77,19 @@ You can configure the maximum number of attempts to generate a unique combinatio
 - `-unique-combinations.el`: A file storing previously generated combinations for the associated Org file.
 - `.used-ids.el`: A file storing the used 3-digit IDs for the associated Org file.
 
-# Demo
+# Notes
 
-[![Watch the Video](Screenshot.png)](https://youtu.be/dl1TpdEbq7Q)
+- Combinations are normalized by heading content for accurate comparison.
+
+- Intermediate child nodes (with children) are excluded from tag summary.
+
+# Tested Environment
+
+- WSL2: Ubuntu 22.04 LTS
+
+- Emacs: 30.1
+
+- Orgmode: 9.7.11
 
 # Disclaimer
 
