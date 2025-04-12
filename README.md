@@ -1,6 +1,6 @@
 # MCQ Balance Engine
 
-The **MCQ Balance Engine** is an Emacs-based tool designed to shuffle multiple-choice question (MCQ) headings in Org-mode files, ensuring unique combinations of questions based on specified tags. It also extracts correct answers from Org-mode files and saves them as a CSV file for easy access and analysis.
+The **MCQ Balance Engine** is an Emacs Lisp tool designed to facilitate the creation of randomized, balanced, and non-repeating sets of multiple-choice questions (MCQs) within Org-mode files. It supports tag-based filtering, persistent uniqueness across sessions, and seamless export of questions and answers for exams, quizzes, or productivity templates.
 
 # Demo (Updated versions could be different)
 
