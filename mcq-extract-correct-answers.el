@@ -1,6 +1,6 @@
 (require 'subr-x)  ;; For string-trim
 
-(defun extract-correct-answers (file-path)
+(defun mcq-extract-correct-answers (file-path)
   "Extract :Correct: answers from the current Org buffer and save to FILE-PATH as a CSV.
 Keeps only the most recent answers by deleting everything above the last 'Question,Answer'."
   (interactive
