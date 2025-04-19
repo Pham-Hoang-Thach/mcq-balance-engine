@@ -16,7 +16,7 @@ The **MCQ Balance Engine** is an Emacs Lisp tool designed to facilitate the crea
 - 🆔 **Random 3-digit exam code**: Each combo is given a unique ID stored on disk.
 - 📤 **Export cleaned buffer**: Removes metadata, renumbers questions, and optionally shows tags.
 - 📥 **Extract correct answers**: Outputs answers into a CSV file from Org `:Correct:` properties.
-- 🔍 **mcq-check-missing-correct-answers**: Identify questions missing the `:Correct:` property in your Org-mode files. It displays clickable links to those questions, making it easy to fix them.
+- 🔍 **Check missing correct answers**: Identify questions missing the `:Correct:` property in your Org-mode files. It displays clickable links to those questions, making it easy to fix them.
 
 
 # Installation
