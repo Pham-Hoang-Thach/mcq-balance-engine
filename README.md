@@ -16,6 +16,8 @@ The **MCQ Balance Engine** is an Emacs Lisp tool designed to facilitate the crea
 - 🆔 **Random 3-digit exam code**: Each combo is given a unique ID stored on disk.
 - 📤 **Export cleaned buffer**: Removes metadata, renumbers questions, and optionally shows tags.
 - 📥 **Extract correct answers**: Outputs answers into a CSV file from Org `:Correct:` properties.
+- 🔍 **mcq-check-missing-correct-answers**: Identify questions missing the `:Correct:` property in your Org-mode files. It displays clickable links to those questions, making it easy to fix them.
+
 
 # Installation
 
@@ -24,6 +26,7 @@ To use the MCQ Balance Engine, simply download the following files:
 1. `mcq-persistent-org-combo-shuffler.el`
 2. `mcq-extract-correct-answers.el`
 3. `mcq-export-cleaned-questions.el`
+4. `mcq-check-missing-correct-answers.el`
 
 Place them in your Emacs `load-path` directory and load them into your Emacs environment.
 
@@ -31,6 +34,7 @@ Place them in your Emacs `load-path` directory and load them into your Emacs env
 (load-file "/path/to/mcq-persistent-org-combo-shuffler.el")
 (load-file "/path/to/mcq-extract-correct-answers.el")
 (load-file "/path/to/mcq-export-cleaned-questions.el")
+(load-file "/path/to/mcq-check-missing-correct-answers.el")
 ```
 
 Alternatively, you can copy the contents of these files into your Emacs configuration file.
@@ -91,7 +95,7 @@ You can configure the maximum number of attempts to generate a unique combinatio
 
 # Tested Environment
 
-- WSL2: Ubuntu 22.04 LTS
+- Debian 12 / WSL2: Ubuntu 22.04 LTS
 
 - Emacs: 30.1
 
