@@ -1,13 +1,15 @@
 (defun mcq-export-cleaned-questions ()
   "Reformat Org buffer by renumbering questions as 'Question N' or 'Câu N',
-removing properties, preserving '*Exam code:* NNN', and asking whether to show tags."
+removing properties, preserving '*Exam code:* NNN', and asking whether to show tags.
+Adds blank lines after Org-mode tables but not before them."
 
   (interactive)
   (let ((use-vietnamese (y-or-n-p "Use Vietnamese format ('Câu') for question headings? "))
         (show-tags (y-or-n-p "Show tags in cleaned output? "))
         (output-buffer (get-buffer-create "*Formatted Questions*"))
         (count 1)
-        (exam-code-line nil))
+        (exam-code-line nil)
+        (inside-table nil))  ;; Track if we are inside a table
 
     ;; Prepare output buffer
     (with-current-buffer output-buffer
@@ -18,7 +20,7 @@ removing properties, preserving '*Exam code:* NNN', and asking whether to show t
     (save-excursion
       (goto-char (point-min))
 
-      ;; First, check if exam code line exists
+      ;; Check if exam code line exists
       (when (re-search-forward "^\\*Exam code:\\*\\s-*\\([0-9]+\\)" nil t)
         (setq exam-code-line (buffer-substring-no-properties (match-beginning 0) (match-end 0))))
 
@@ -51,7 +53,7 @@ removing properties, preserving '*Exam code:* NNN', and asking whether to show t
               ;; Split and parse lines
               (setq lines (split-string section "\n" t))
 
-              ;; Extract tags (from heading)
+              ;; Extract tags from heading
               (when (string-match ":\\([^:\n]+\\(?::[^:\n]+\\)*\\):\\s-*$" (car lines))
                 (setq tag-part (match-string 0 (car lines))))
 
@@ -78,11 +80,26 @@ removing properties, preserving '*Exam code:* NNN', and asking whether to show t
                 (when (and show-tags tag-part)
                   (insert "  " tag-part))
                 (insert "\n\n")
-                (dolist (line body-lines)
-                  (unless (string-blank-p line)
-                    (insert line "\n\n")))))
 
-            (setq count (1+ count))))))
+                ;; Process the body lines
+                (dolist (line body-lines)
+                  (cond
+                   ;; Table handling: Do NOT add a blank line before, but **always** add one after
+                   ((string-prefix-p "|" line)
+                    (insert line "\n")
+                    (setq inside-table t))
+
+                   ;; End of table: **Force a blank line**
+                   ((and inside-table (not (string-prefix-p "|" line)))
+                    (setq inside-table nil)
+                    (insert "\n" line "\n\n"))  ;; **Ensures a blank line after the table**
+
+                   ;; Non-table content (add blank line after regular content)
+                   (t
+                    (unless (string-blank-p line)
+                      (insert line "\n\n"))))))  ;; Blank line after non-table content
+
+            (setq count (1+ count)))))))
 
     ;; Show result
     (switch-to-buffer output-buffer)))
