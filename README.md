@@ -62,7 +62,13 @@ To extract the correct answers and save them as a CSV:
 2. Renumbers all questions sequentially (`Question 1`, `Question 2`, etc. or `Câu 1`, `Câu 2`, ... if in Vietnamese).
 3. Removes all `:PROPERTIES:` drawers.
 4. Optionally includes tags inline.
-5. Preserves *Exam code:* NNN heading at the top.
+5. Preserves `Exam code: 3-digit number` heading at the top.
+
+## Check Missing Correct Answers
+
+1. Open your Org-mode file.
+2. Run `M-x mcq-check-missing-correct-answers`.
+3. A buffer will open showing links to questions missing the `:Correct:` value.
 
 # Customization
 
