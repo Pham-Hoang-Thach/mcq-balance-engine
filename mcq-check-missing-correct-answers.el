@@ -1,4 +1,4 @@
-(defun butler/mcq-check-missing-correct-answers ()
+(defun mcq-check-missing-correct-answers ()
   "Find questions with a blank :Correct: property and show clickable links to fix them."
   (interactive)
   (let ((results '()))
