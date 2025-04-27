@@ -82,8 +82,10 @@ You can configure the maximum number of attempts to generate a unique combinatio
 
 # File Structure
 
-- `persistent-org-combo-shuffler.el`: Contains functions for shuffling and displaying MCQ combinations.
-- `extract-correct-answers.el`: Extracts correct answers marked by `:Correct:` and saves them to a CSV.
+- `mcq-persistent-org-combo-shuffler.el`: Contains functions for shuffling and displaying MCQ combinations.
+- `mcq-extract-correct-answers.el`: Extracts correct answers marked by `:Correct:` and saves them to a CSV.
+- `mcq-export-cleaned-questions.el`: Exports shuffled MCQ questions into a clean Org buffer.
+- `mcq-check-missing-correct-answers.el`: Scans MCQ entries and detects if any questions are missing a correct answer.
 - `-unique-combinations.el`: A file storing previously generated combinations for the associated Org file.
 - `.used-ids.el`: A file storing the used 3-digit IDs for the associated Org file.
 
