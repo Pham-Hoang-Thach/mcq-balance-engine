@@ -39,6 +39,26 @@ Place them in your Emacs `load-path` directory and load them into your Emacs env
 
 Alternatively, you can copy the contents of these files into your Emacs configuration file.
 
+For those who are using `use-package`, insert the similar snippet in your `init.el` or `config.org`:
+```emacs-lisp
+(use-package mcq-balance-engine
+  :load-path "~/.emacs.d/github/mcq-balance-engine"
+  :commands (mcq-persistent-org-combo-shuffler
+             mcq-extract-correct-answers
+             mcq-export-cleaned-questions
+             mcq-check-missing-correct-answers)
+  :init
+  ;; Custom settings before loading
+  (setq mcq-persistent-org-combo-shuffler-max-attempts 500)
+  :config
+  ;; Org-mode keybindings
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-c m s") #'mcq-persistent-org-combo-shuffler)
+    (define-key org-mode-map (kbd "C-c m e") #'mcq-extract-correct-answers)
+    (define-key org-mode-map (kbd "C-c m x") #'mcq-export-cleaned-questions)
+    (define-key org-mode-map (kbd "C-c m c") #'mcq-check-missing-correct-answers)))
+```
+
 # Usage
 
 ## Persistent Org Combo Shuffler
