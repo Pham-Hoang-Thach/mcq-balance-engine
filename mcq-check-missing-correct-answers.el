@@ -19,3 +19,5 @@
             (org-mode))
           (display-buffer buf))
       (message "All questions have valid :Correct: answers."))))
+
+(provide 'mcq-check-missing-correct-answers)

@@ -34,3 +34,5 @@ Keeps only the most recent answers by deleting everything above the last 'Questi
         (insert clean-content)))
 
     (message "Saved %d answers to %s" (1- qnum) file-path)))
+
+(provide 'mcq-extract-correct-answers)

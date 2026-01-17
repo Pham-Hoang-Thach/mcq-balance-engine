@@ -236,3 +236,5 @@
                 (insert "\n")))
             (switch-to-buffer buffer)
             (message "Unique combination generated in %d attempt(s)." attempt)))))))
+
+(provide 'mcq-persistent-org-combo-shuffler)

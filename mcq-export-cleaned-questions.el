@@ -103,3 +103,5 @@ Adds blank lines after Org-mode tables but not before them."
 
     ;; Show result
     (switch-to-buffer output-buffer)))
+
+(provide 'mcq-export-cleaned-questions)
